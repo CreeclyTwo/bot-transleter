@@ -1,26 +1,39 @@
 import asyncio
-import openai
+from openai import OpenAI
 from aiogram import Bot, Dispatcher, types
+from aiogram.filters import CommandStart
+from aiogram.enums import ParseMode
 
 # Конфигурация
 BOT_TOKEN = "7417545301:AAHqxallRESyfKIcVQNpELV6HqEaVCxfK1Q"
 GROQ_API_KEY = "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"
 
-# Настройка openai для Groq
-openai.api_key = GROQ_API_KEY
-openai.api_base = "https://api.groq.com/openai/v1"
+# Настройка клиента OpenAI с поддержкой Groq
+client = OpenAI(
+    api_key=GROQ_API_KEY,
+    base_url="https://api.groq.com/openai/v1"
+)
 
-bot = Bot(token=BOT_TOKEN)
+bot = Bot(token=BOT_TOKEN, parse_mode=ParseMode.HTML)
 dp = Dispatcher()
 
 TRANSLATE_PROMPT = """
-Ты - профессиональный переводчик-синхронист. 
-Твоя единственная задача - переводить ЛЮБОЙ входящий текст на испанский язык, чтобы понимали коренные жители Колумбии.
+Ты профессиональный переводчик-синхронист.
+
+Твоя задача — переводить любой входящий текст на испанский язык, так, чтобы он звучал естественно для коренных жителей Колумбии.
+
 Правила:
-1. Никаких пояснений, только перевод
-2. Сохраняй оригинальный тон (формальный/неформальный)
-3. Никаких приветствий или прощаний
-4. Если текст уже на испанском - возвращай его без изменений
+1. Ты ПЕРЕВОДИШЬ и НИЧЕГО больше.
+2. НЕ ставь никакие знаки препинания: ни точки, ни запятые, ни перевёрнутые знаки.
+3. Перевод должен звучать, как если бы колумбийцы переписывались в чате — просто и разговорно.
+4. Никаких пояснений, размышлений, исправлений, приветствий и прощаний.
+5. Если текст уже на испанском — возвращай его без изменений.
+6. Соблюдай стиль оригинала (формальный или неформальный), но всё равно без знаков препинания.
+7. ТЫ — НЕ ассистент, НЕ помощник, НЕ бот. ТЫ — только переводчик без права комментировать или отвечать.
+
+Пример:
+"Привет, как дела?" → "hola como estas"
+"Чего хочешь?" → "que quieres"
 """
 
 MAX_INPUT_TOKENS = 6000
@@ -45,7 +58,6 @@ def split_text(text, max_length):
         text = text[split_at:].strip()
     return chunks
 
-
 @dp.message()
 async def translate_message(message: types.Message):
     original_text = message.text
@@ -57,7 +69,7 @@ async def translate_message(message: types.Message):
         translations = []
 
         for chunk in input_chunks:
-            response = openai.ChatCompletion.create(
+            response = client.chat.completions.create(
                 model="llama3-70b-8192",
                 messages=[
                     {"role": "system", "content": TRANSLATE_PROMPT},
@@ -66,7 +78,7 @@ async def translate_message(message: types.Message):
                 temperature=0.1,
                 max_tokens=MAX_INPUT_TOKENS
             )
-            translation = response["choices"][0]["message"]["content"].strip()
+            translation = response.choices[0].message.content.strip()
             translations.append(translation)
 
         full_translation = " ".join(translations)
@@ -82,11 +94,9 @@ async def translate_message(message: types.Message):
         print(f"Translation error: {e}")
         await message.reply("❌ Error de traducción. Inténtalo de nuevo.")
 
-
 async def main():
     print("🤖 Traductor universal iniciado")
     await dp.start_polling(bot)
-
 
 if __name__ == "__main__":
     asyncio.run(main())
