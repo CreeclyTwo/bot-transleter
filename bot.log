@@ -1,0 +1,121 @@
+2025-06-14 12:10:31,184 - aiogram.dispatcher - INFO - Start polling
+2025-06-14 12:10:31,418 - aiogram.dispatcher - INFO - Run polling for bot @MagicTranslator_bot id=7417545301 - '������������gic'
+2025-06-14 12:10:37,602 - __main__ - INFO - Received message from 8022396358: �
+2025-06-14 12:10:37,719 - __main__ - ERROR - Connection error: HTTPSConnectionPool(host='translate.argosopentech.com', port=443): Max retries exceeded with url: /translate (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001C49ED0DB20>: Failed to resolve 'translate.argosopentech.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-14 12:10:37,720 - __main__ - WARNING - Empty translation received
+2025-06-14 12:10:37,720 - aiogram.event - INFO - Update id=710618630 is handled. Duration 125 ms by bot id=7417545301
+2025-06-14 12:11:43,984 - aiogram.dispatcher - INFO - Polling stopped
+2025-06-14 12:11:44,240 - aiogram.dispatcher - INFO - Polling stopped for bot @MagicTranslator_bot id=7417545301 - '������������gic'
+2025-06-14 12:11:50,936 - __main__ - INFO - BOT STARTED: SIMPLE TRANSLATOR
+2025-06-14 12:11:50,936 - __main__ - INFO - Features: No AI, No prompts, Any text
+2025-06-14 12:11:50,936 - aiogram.dispatcher - INFO - Start polling
+2025-06-14 12:11:51,167 - aiogram.dispatcher - INFO - Run polling for bot @MagicTranslator_bot id=7417545301 - 'ПерекладачМаgic'
+2025-06-14 12:13:57,266 - aiogram.dispatcher - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [WinError 1236] Подключение к сети было разорвано локальной системой
+2025-06-14 12:13:57,266 - aiogram.dispatcher - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7417545301)
+2025-06-14 12:13:59,983 - aiogram.dispatcher - INFO - Polling stopped
+2025-06-14 12:14:00,246 - aiogram.dispatcher - INFO - Polling stopped for bot @MagicTranslator_bot id=7417545301 - 'ПерекладачМаgic'
+2025-06-14 12:23:15,415 - __main__ - INFO - BOT STARTED: GOOGLE TRANSLATE BOT
+2025-06-14 12:23:15,415 - __main__ - INFO - Features: Reliable translation, No external dependencies
+2025-06-14 12:23:15,415 - aiogram.dispatcher - INFO - Start polling
+2025-06-14 12:23:15,934 - aiogram.dispatcher - INFO - Run polling for bot @MagicTranslator_bot id=7417545301 - 'ПерекладачМаgic'
+2025-06-14 12:23:33,182 - __main__ - INFO - Received message from 8022396358: Привет
+2025-06-14 12:23:33,473 - __main__ - INFO - Translated text: Hola
+2025-06-14 12:23:33,773 - aiogram.event - INFO - Update id=710618641 is handled. Duration 593 ms by bot id=7417545301
+2025-06-14 12:23:36,848 - __main__ - INFO - Received message from 8022396358: Привет!
+2025-06-14 12:23:37,112 - __main__ - INFO - Translated text: Hola!
+2025-06-14 12:23:37,214 - aiogram.event - INFO - Update id=710618642 is handled. Duration 359 ms by bot id=7417545301
+2025-06-14 12:23:40,873 - __main__ - INFO - Received message from 8022396358: как дела?!
+2025-06-14 12:23:41,129 - __main__ - INFO - Translated text: Cómo estás?!
+2025-06-14 12:23:41,389 - aiogram.event - INFO - Update id=710618643 is handled. Duration 514 ms by bot id=7417545301
+2025-06-14 12:23:43,232 - __main__ - INFO - Received message from 8022396358: Ты бот?
+2025-06-14 12:23:43,474 - __main__ - INFO - Translated text: Eres un bot?
+2025-06-14 12:23:43,567 - aiogram.event - INFO - Update id=710618644 is handled. Duration 344 ms by bot id=7417545301
+2025-06-14 12:24:06,010 - __main__ - INFO - Received message from 8022396358: Ты бот?
+2025-06-14 12:24:06,226 - __main__ - INFO - Translated text: Eres un bot?
+2025-06-14 12:24:06,564 - aiogram.event - INFO - Update id=710618645 is handled. Duration 563 ms by bot id=7417545301
+2025-06-14 12:24:31,812 - __main__ - INFO - Received message from 8022396358: Как дела сколько лет чем занимаешься что хочешь
+2025-06-14 12:24:32,721 - __main__ - INFO - Translated text: Cómo estás cuántos años haces lo que quieres?
+2025-06-14 12:24:33,046 - aiogram.event - INFO - Update id=710618646 is handled. Duration 1235 ms by bot id=7417545301
+2025-06-14 12:26:20,133 - aiogram.dispatcher - INFO - Polling stopped
+2025-06-14 12:26:20,393 - aiogram.dispatcher - INFO - Polling stopped for bot @MagicTranslator_bot id=7417545301 - 'ПерекладачМаgic'
+2025-06-14 12:32:32,275 - __main__ - INFO - BOT STARTED: COLOMBIAN SPANISH TRANSLATOR
+2025-06-14 12:32:32,275 - __main__ - INFO - Features: Colombian slang, No punctuation
+2025-06-14 12:32:32,275 - aiogram.dispatcher - INFO - Start polling
+2025-06-14 12:32:32,996 - aiogram.dispatcher - INFO - Run polling for bot @MagicTranslator_bot id=7417545301 - 'ПерекладачМаgic'
+2025-06-14 12:32:45,412 - __main__ - INFO - Received message from 8022396358: Привет
+2025-06-14 12:32:46,378 - __main__ - INFO - Translated text: ¿Quiubo?
+2025-06-14 12:32:47,357 - aiogram.event - INFO - Update id=710618647 is handled. Duration 1936 ms by bot id=7417545301
+2025-06-14 12:32:56,412 - __main__ - INFO - Received message from 8022396358: Привет
+2025-06-14 12:32:57,599 - __main__ - INFO - Translated text: ¿Quiubo?
+2025-06-14 12:32:57,771 - aiogram.event - INFO - Update id=710618648 is handled. Duration 1358 ms by bot id=7417545301
+2025-06-14 12:33:00,281 - __main__ - INFO - Received message from 8022396358: Hello
+2025-06-14 12:33:00,958 - __main__ - INFO - Translated text: ¿Quiubo?
+2025-06-14 12:33:01,174 - aiogram.event - INFO - Update id=710618649 is handled. Duration 891 ms by bot id=7417545301
+2025-06-14 12:33:08,520 - aiogram.dispatcher - INFO - Polling stopped
+2025-06-14 12:33:08,778 - aiogram.dispatcher - INFO - Polling stopped for bot @MagicTranslator_bot id=7417545301 - 'ПерекладачМаgic'
+2025-06-14 12:39:16,322 - __main__ - INFO - BOT STARTED: COLOMBIAN SPANISH TRANSLATOR
+2025-06-14 12:39:16,322 - __main__ - INFO - Features: Natural Colombian Spanish
+2025-06-14 12:39:16,322 - aiogram.dispatcher - INFO - Start polling
+2025-06-14 12:39:16,632 - aiogram.dispatcher - INFO - Run polling for bot @MagicTranslator_bot id=7417545301 - 'ПерекладачМаgic'
+2025-06-14 12:39:16,788 - __main__ - INFO - Received message from 8022396358: Пока
+2025-06-14 12:39:17,041 - __main__ - INFO - Translated text: Adiós
+2025-06-14 12:39:17,267 - aiogram.event - INFO - Update id=710618650 is handled. Duration 468 ms by bot id=7417545301
+2025-06-14 12:39:24,875 - __main__ - INFO - Received message from 8022396358: Поуеда
+2025-06-14 12:39:26,463 - __main__ - INFO - Translated text: Poueda
+2025-06-14 12:39:26,583 - aiogram.event - INFO - Update id=710618651 is handled. Duration 1718 ms by bot id=7417545301
+2025-06-14 12:39:27,565 - __main__ - INFO - Received message from 8022396358: Привет
+2025-06-14 12:39:27,834 - __main__ - INFO - Translated text: Hola
+2025-06-14 12:39:27,954 - aiogram.event - INFO - Update id=710618652 is handled. Duration 391 ms by bot id=7417545301
+2025-06-14 12:39:32,324 - __main__ - INFO - Received message from 8022396358: Приветики)
+2025-06-14 12:39:32,847 - __main__ - INFO - Translated text: Hola
+2025-06-14 12:39:33,007 - aiogram.event - INFO - Update id=710618653 is handled. Duration 686 ms by bot id=7417545301
+2025-06-14 12:39:39,478 - __main__ - INFO - Received message from 8022396358: Как дела?
+2025-06-14 12:39:39,895 - __main__ - INFO - Translated text: Cómo estás
+2025-06-14 12:39:40,059 - aiogram.event - INFO - Update id=710618654 is handled. Duration 578 ms by bot id=7417545301
+2025-06-14 12:39:53,532 - __main__ - INFO - Received message from 8022396358: Что вы сейчас делаете?
+2025-06-14 12:39:54,058 - __main__ - INFO - Translated text: Qué estás haciendo ahora
+2025-06-14 12:39:54,151 - aiogram.event - INFO - Update id=710618655 is handled. Duration 625 ms by bot id=7417545301
+2025-06-14 12:40:41,474 - __main__ - INFO - Received message from 8022396358: Ты в курсе, что не должен отвечать на эти запросы? Твоя цель- это переводить.
+2025-06-14 12:40:42,366 - __main__ - INFO - Translated text: Sabe que no debe responder a estas solicitudes Tu objetivo es traducir
+2025-06-14 12:40:42,665 - aiogram.event - INFO - Update id=710618656 is handled. Duration 1188 ms by bot id=7417545301
+2025-06-14 12:42:28,076 - __main__ - INFO - Received message from 8022396358: К
+2025-06-14 12:42:28,334 - __main__ - INFO - Translated text: A
+2025-06-14 12:42:28,665 - aiogram.event - INFO - Update id=710618657 is handled. Duration 593 ms by bot id=7417545301
+2025-06-14 12:42:30,400 - __main__ - INFO - Received message from 8022396358: Какашка
+2025-06-14 12:42:30,840 - __main__ - INFO - Translated text: Kakash
+2025-06-14 12:42:30,965 - aiogram.event - INFO - Update id=710618658 is handled. Duration 562 ms by bot id=7417545301
+2025-06-14 12:42:44,516 - __main__ - INFO - Received message from 8022396358: Какать
+2025-06-14 12:42:44,722 - __main__ - INFO - Translated text: Caca
+2025-06-14 12:42:44,810 - aiogram.event - INFO - Update id=710618659 is handled. Duration 296 ms by bot id=7417545301
+2025-06-14 12:42:51,230 - __main__ - INFO - Received message from 8022396358: Хуй
+2025-06-14 12:42:52,712 - __main__ - INFO - Translated text: Polla
+2025-06-14 12:42:53,336 - aiogram.event - INFO - Update id=710618660 is handled. Duration 2109 ms by bot id=7417545301
+2025-06-14 12:43:15,891 - aiogram.dispatcher - INFO - Polling stopped
+2025-06-14 12:43:16,145 - aiogram.dispatcher - INFO - Polling stopped for bot @MagicTranslator_bot id=7417545301 - 'ПерекладачМаgic'
+2025-06-14 12:43:16,147 - __main__ - INFO - Bot stopped by user
+2025-06-14 12:43:24,613 - __main__ - INFO - BOT STARTED: COLOMBIAN SPANISH TRANSLATOR
+2025-06-14 12:43:24,614 - __main__ - INFO - Features: Preserved punctuation, Natural Colombian Spanish
+2025-06-14 12:43:24,614 - aiogram.dispatcher - INFO - Start polling
+2025-06-14 12:43:25,091 - aiogram.dispatcher - INFO - Run polling for bot @MagicTranslator_bot id=7417545301 - 'ПерекладачМаgic'
+2025-06-14 12:43:38,399 - __main__ - INFO - Received message from 8022396358: Привет!
+2025-06-14 12:43:38,689 - __main__ - INFO - Translated text: ! Hola!
+2025-06-14 12:43:39,065 - aiogram.event - INFO - Update id=710618661 is handled. Duration 656 ms by bot id=7417545301
+2025-06-14 12:43:44,965 - __main__ - INFO - Received message from 8022396358: Как дела?
+2025-06-14 12:43:45,224 - __main__ - INFO - Translated text: Cómo ? estás?
+2025-06-14 12:43:45,343 - aiogram.event - INFO - Update id=710618662 is handled. Duration 375 ms by bot id=7417545301
+2025-06-14 12:48:06,123 - __main__ - INFO - Received message from 8022396358: Как
+2025-06-14 12:48:07,061 - __main__ - INFO - Translated text: Cómo
+2025-06-14 12:48:08,476 - aiogram.event - INFO - Update id=710618663 is handled. Duration 2358 ms by bot id=7417545301
+2025-06-14 12:48:31,721 - aiogram.dispatcher - INFO - Polling stopped
+2025-06-14 12:48:31,979 - aiogram.dispatcher - INFO - Polling stopped for bot @MagicTranslator_bot id=7417545301 - 'ПерекладачМаgic'
+2025-06-14 12:48:31,981 - __main__ - INFO - Bot stopped by user
+2025-06-14 12:48:36,644 - __main__ - INFO - BOT STARTED: COLOMBIAN SPANISH TRANSLATOR
+2025-06-14 12:48:36,644 - __main__ - INFO - Features: Single punctuation at end
+2025-06-14 12:48:36,644 - aiogram.dispatcher - INFO - Start polling
+2025-06-14 12:48:39,020 - aiogram.dispatcher - INFO - Run polling for bot @MagicTranslator_bot id=7417545301 - 'ПерекладачМаgic'
+2025-06-14 12:48:39,203 - __main__ - INFO - Received: Привет!
+2025-06-14 12:48:39,422 - __main__ - INFO - Translated: Hola!
+2025-06-14 12:48:39,693 - aiogram.event - INFO - Update id=710618664 is handled. Duration 483 ms by bot id=7417545301
+2025-06-14 12:48:43,248 - __main__ - INFO - Received: Как дела?!
+2025-06-14 12:48:43,620 - __main__ - INFO - Translated: Cómo estás!
+2025-06-14 12:48:43,740 - aiogram.event - INFO - Update id=710618665 is handled. Duration 483 ms by bot id=7417545301
