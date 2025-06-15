@@ -119,3 +119,6 @@
 2025-06-14 12:48:43,248 - __main__ - INFO - Received: Как дела?!
 2025-06-14 12:48:43,620 - __main__ - INFO - Translated: Cómo estás!
 2025-06-14 12:48:43,740 - aiogram.event - INFO - Update id=710618665 is handled. Duration 483 ms by bot id=7417545301
+2025-06-14 12:53:00,077 - aiogram.dispatcher - INFO - Polling stopped
+2025-06-14 12:53:00,335 - aiogram.dispatcher - INFO - Polling stopped for bot @MagicTranslator_bot id=7417545301 - 'ПерекладачМаgic'
+2025-06-14 12:53:00,338 - __main__ - INFO - Bot stopped by user

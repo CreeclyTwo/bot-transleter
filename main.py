@@ -1,106 +1,156 @@
 import asyncio
-from openai import OpenAI
+import re
 from aiogram import Bot, Dispatcher, types
-from aiogram.filters import CommandStart
 from aiogram.enums import ParseMode
+from aiogram.client.default import DefaultBotProperties
+import logging
+import sys
+import requests
+from urllib.parse import quote
 
-# Конфигурация
-BOT_TOKEN = "7417545301:AAHqxallRESyfKIcVQNpELV6HqEaVCxfK1Q"
-GROQ_API_KEY = "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"
-
-# Настройка клиента OpenAI с поддержкой Groq
-client = OpenAI(
-    api_key=GROQ_API_KEY,
-    base_url="https://api.groq.com/openai/v1"
+# Настройка логирования
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.StreamHandler(stream=sys.stdout),
+        logging.FileHandler("bot.log", encoding="utf-8")
+    ]
 )
+logger = logging.getLogger(__name__)
 
-bot = Bot(token=BOT_TOKEN, parse_mode=ParseMode.HTML)
+# Конфигурация бота
+BOT_TOKEN = "7417545301:AAHqxallRESyfKIcVQNpELV6HqEaVCxfK1Q"
+bot = Bot(
+    token=BOT_TOKEN,
+    default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+)
 dp = Dispatcher()
 
-TRANSLATE_PROMPT = """
-Ты профессиональный переводчик-синхронист, специализирующийся на колумбийском испанском.
 
-Твоя задача — переводить любой текст так, чтобы он звучал, как разговорная речь в мессенджерах.
+def adapt_to_colombian_spanish(text: str) -> str:
+    """Добавляем только действительно распространенные колумбийские выражения"""
+    colombian_slang = {
+        r"\bamigo\b": "parcero",
+        r"\bcompañero\b": "parcero",
+        r"\bgenial\b": "chévere",
+        r"\bexcelente\b": "bacano",
+        r"\bfeo\b": "chimbo",
+        r"\bmalo\b": "chimbo",
+        r"\bestúpido\b": "güevón",
+        r"\bcafé\b": "tinto",
+        r"\bcerveza\b": "pola",
+        r"\bdinero\b": "plata",
+        r"\bhablar\b": "parlar",
+        r"\bproblema\b": "lío",
+        r"\bfiesta\b": "rumba",
+        r"\btrabajo\b": "camello",
+    }
 
-🔒 Жёсткие правила:
-1. Ты ТОЛЬКО переводишь. НЕ даёшь пояснений, НЕ говоришь от себя.
-2. НИКАКИХ знаков препинания — кроме двух:
-   - Стави `!` в конце эмоциональных фраз или команд.
-   - Стави `?` в конце вопросительных фраз.
-3. Не используй `¡`, `¿`, точки, запятые, двоеточия или тире — ни при каких обстоятельствах.
-4. Перевод должен звучать просто, как будто два колумбийца общаются в чате.
-5. Если текст уже на испанском — верни его как есть, ничего не меняя.
+    for pattern, replacement in colombian_slang.items():
+        text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
 
-📌 Важно: ТЫ ОБЯЗАН использовать `!` и `?` там, где это соответствует смыслу. Например:
-"Ты где?" → "donde estas?"
-"Быстро сюда!" → "ven ya!"
-"Чего тебе?" → "que quieres?"
-
-Игнорирование этих двух символов считается ошибкой.
-"""
+    return text
 
 
-MAX_INPUT_TOKENS = 6000
-MAX_OUTPUT_LENGTH = 4096
+def sanitize_text(text: str) -> str:
+    """Очистка текста с сохранением только одного конечного знака"""
+    if not text:
+        return ""
 
-def split_text(text, max_length):
-    chunks = []
-    while text:
-        if len(text) <= max_length:
-            chunks.append(text)
-            break
+    # Удаляем все знаки препинания, кроме последнего
+    cleaned_text = re.sub(r'[.,!?;:¡¿"“”()\[\]{}—–]', '', text)
 
-        split_at = max_length
-        for marker in ['. ', '! ', '? ', '\n\n', '\n', ', ', ' ']:
-            pos = text.rfind(marker, 0, max_length)
-            if pos > 0:
-                split_at = pos + len(marker)
-                break
+    # Добавляем последний знак из оригинала, если он был
+    last_char = ''
+    if text and text[-1] in '.!?;:':
+        last_char = text[-1]
 
-        chunk = text[:split_at].strip()
-        chunks.append(chunk)
-        text = text[split_at:].strip()
-    return chunks
+    # Применяем колумбийские адаптации
+    result = adapt_to_colombian_spanish(cleaned_text)
 
-@dp.message()
-async def translate_message(message: types.Message):
-    original_text = message.text
-    if not original_text.strip():
-        return
+    # Добавляем только один конечный знак
+    if last_char:
+        result += last_char
+
+    # Удаляем лишние пробелы
+    return re.sub(r'\s+', ' ', result).strip()
+
+
+def translate_text(text: str) -> str:
+    """Перевод через Google Translate API"""
+    if not text.strip():
+        return ""
 
     try:
-        input_chunks = split_text(original_text, MAX_INPUT_TOKENS // 2)
-        translations = []
+        url = f"https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=es&dt=t&q={quote(text)}"
+        response = requests.get(url, timeout=10)
 
-        for chunk in input_chunks:
-            response = client.chat.completions.create(
-                model="llama3-70b-8192",
-                messages=[
-                    {"role": "system", "content": TRANSLATE_PROMPT},
-                    {"role": "user", "content": chunk}
-                ],
-                temperature=0.1,
-                max_tokens=MAX_INPUT_TOKENS
-            )
-            translation = response.choices[0].message.content.strip()
-            translations.append(translation)
+        if response.status_code == 200:
+            data = response.json()
+            return ''.join(item[0] for item in data[0] if item[0])
+        else:
+            logger.error(f"Translation error: Status {response.status_code}")
+            return ""
+    except Exception as e:
+        logger.error(f"Translation error: {str(e)}")
+        return ""
 
-        full_translation = " ".join(translations)
-        output_chunks = split_text(full_translation, MAX_OUTPUT_LENGTH)
 
-        for i, chunk in enumerate(output_chunks):
-            if i == 0:
-                await message.reply(chunk)
-            else:
-                await bot.send_message(chat_id=message.chat.id, text=chunk)
+@dp.message()
+async def handle_message(message: types.Message):
+    user_text = message.text.strip()
+
+    if not user_text:
+        return
+
+    logger.info(f"Received: {user_text}")
+
+    try:
+        translated = translate_text(user_text)
+
+        if translated:
+            # Сохраняем ваш последний знак препинания
+            last_char = user_text[-1] if user_text and user_text[-1] in '.!?;:' else ''
+
+            # Очищаем и адаптируем
+            cleaned = sanitize_text(translated)
+
+            # Для приветствий используем базовые формы
+            if user_text.lower().split()[0] in ["hello", "hi", "hey", "привет"]:
+                cleaned = "Hola" + (last_char if last_char else '')
+            elif user_text.lower().split()[0] in ["пока", "до свидания", "bye"]:
+                cleaned = "Adiós" + (last_char if last_char else '')
+
+            logger.info(f"Translated: {cleaned}")
+            await message.reply(cleaned)
+        else:
+            await message.reply("Translation service unavailable")
 
     except Exception as e:
-        print(f"Translation error: {e}")
-        await message.reply("❌ Error de traducción. Inténtalo de nuevo.")
+        logger.error(f"Error: {str(e)}")
+        await message.reply("Translation error")
+
 
 async def main():
-    print("🤖 Traductor universal iniciado")
+    logger.info("BOT STARTED: COLOMBIAN SPANISH TRANSLATOR")
+    logger.info("Features: Single punctuation at end")
     await dp.start_polling(bot)
 
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    # Явное завершение предыдущих экземпляров (для Windows)
+    import os
+
+    os.system("taskkill /f /im python.exe > nul 2>&1")
+
+    # Исправление кодировки для Windows
+    if sys.platform == "win32":
+        sys.stdout.reconfigure(encoding='utf-8')
+        sys.stderr.reconfigure(encoding='utf-8')
+
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        logger.info("Bot stopped by user")
+        sys.exit(0)
